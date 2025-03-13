@@ -1,19 +1,21 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
+import "./DAF_FAF.css";
 
 const AudioRecorder = () => {
   const [recording, setRecording] = useState(false);
   const [audioURL, setAudioURL] = useState(null);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [pitch, setPitch] = useState(1);
+  const [showExercise, setShowExercise] = useState(false);
   const mediaRecorder = useRef(null);
   const audioChunks = useRef([]);
   const audioRef = useRef(null);
 
   const startRecording = async () => {
     try {
-      // Reset previous recording
       setAudioURL(null);
       audioChunks.current = [];
+      setShowExercise(false);
 
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       mediaRecorder.current = new MediaRecorder(stream);
@@ -28,7 +30,7 @@ const AudioRecorder = () => {
         const audioBlob = new Blob(audioChunks.current, { type: "audio/wav" });
         const url = URL.createObjectURL(audioBlob);
         setAudioURL(url);
-        audioChunks.current = [];
+        setShowExercise(true);
       };
 
       mediaRecorder.current.start();
@@ -63,28 +65,39 @@ const AudioRecorder = () => {
   };
 
   return (
-    <div>
-      <button onClick={recording ? stopRecording : startRecording}>
+    <div className="recorder-container">
+      <button 
+        className={`record-btn ${recording ? "stop" : "start"}`} 
+        onClick={recording ? stopRecording : startRecording}
+      >
         {recording ? "Stop Recording" : "Start Recording"}
       </button>
+
       {audioURL && (
-        <div>
+        <div className="audio-controls">
           <audio ref={audioRef} controls src={audioURL}></audio>
-          <a href={audioURL} download="recording.wav">Download</a>
-          <div>
-            <label>DAF: </label>
+          <a href={audioURL} download="recording.wav" className="download-btn">Download</a>
+
+          {/* DAF Adjustment */}
+          <div className="control-group">
+            <label>DAF:</label>
+            <button className="round-btn" onClick={() => setPlaybackRate(Math.max(0.5, playbackRate - 0.1))}>-</button>
             <input
               type="range"
-              min="50"
-              max="200"
-              step="10"
-              value={playbackRate * 100}
-              onChange={(e) => handleSpeedChange({ target: { value: e.target.value / 100 } })}
+              min="0.5"
+              max="2"
+              step="0.1"
+              value={playbackRate}
+              onChange={handleSpeedChange}
             />
-            <span>{playbackRate * 100} ms</span>
+            <button className="round-btn" onClick={() => setPlaybackRate(Math.min(2, playbackRate + 0.1))}>+</button>
+            <span className="value-display">{(playbackRate * 100).toFixed(0)} ms</span>
           </div>
-          <div>
-            <label>FAF: </label>
+
+          {/* FAF Adjustment */}
+          <div className="control-group">
+            <label>FAF:</label>
+            <button className="round-btn" onClick={() => setPitch(Math.max(0.5, pitch - 0.1))}>-</button>
             <input
               type="range"
               min="0.5"
@@ -93,9 +106,15 @@ const AudioRecorder = () => {
               value={pitch}
               onChange={handlePitchChange}
             />
-            <span>{pitch}x</span>
+            <button className="round-btn" onClick={() => setPitch(Math.min(2, pitch + 0.1))}>+</button>
+            <span className="value-display">{pitch.toFixed(1)}x</span>
           </div>
         </div>
+      )}
+
+      {/* Show Start Exercise Button Only After Recording */}
+      {showExercise && (
+        <button className="exercise-btn">Start Exercise</button>
       )}
     </div>
   );

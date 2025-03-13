@@ -14,7 +14,7 @@ const RegisterForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("User Registered:", formData);
-        navigate("/DAF_FAF"); // Redirect to DAF & FAF Page
+        navigate("/how-to-use"); // Redirect to DAF & FAF Page
     };
 
     return (

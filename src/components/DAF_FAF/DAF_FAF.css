@@ -1,75 +1,128 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
-
+/* General Styling */
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #f0f0f0;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
+  padding: 20px;
 }
 
-.container {
+/* Main Container */
+.recorder-container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 8px 25px rgba(255, 255, 255, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 450px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Record Button */
+.record-btn {
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 250px;
+}
+
+.record-btn.start {
+  background: linear-gradient(135deg, #00c853, #b2ff59);
+}
+
+.record-btn.stop {
+  background: linear-gradient(135deg, #d32f2f, #ff5252);
+}
+
+.record-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Audio Controls */
+.audio-controls {
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  text-align: center;
 }
 
-h2 {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #333;
-  margin-bottom: 1rem;
+/* Linear Alignment for DAF & FAF */
+.control-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 15px;
+  padding: 5px;
 }
 
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 15px;
-  border: none;
+.control-group label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Sliders */
+.control-group input[type="range"] {
+  flex-grow: 1;
+  margin: 0 10px;
   cursor: pointer;
-  border-radius: 5px;
-  font-size: 1rem;
-  transition: 0.3s;
-  width: 100%;
-  margin-top: 10px;
 }
 
-button:hover {
-  background-color: #45a049;
+/* Round Buttons */
+.round-btn {
+  width: 40px;
+  height: 40px;
+  background: #ff5722;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+.round-btn:hover {
+  background: #ff9800;
+  transform: scale(1.1);
 }
 
-audio {
-  width: 100%;
-  margin-top: 10px;
+/* Display Value */
+.value-display {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffcc80;
+  margin-left: 10px;
 }
 
-input[type="range"] {
-  width: 100%;
-  margin-top: 10px;
-}
-
-a {
+/* Exercise Button */
+.exercise-btn {
   display: block;
-  margin-top: 10px;
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 500;
+  margin: 20px auto 0;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #ff6f61, #ff8a80);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-a:hover {
-  text-decoration: underline;
+.exercise-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff3d47, #ff6f61);
 }

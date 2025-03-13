@@ -8,7 +8,7 @@ const LoginForm = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        navigate("/DAF_FAF"); // Redirect to DAF & FAF Page
+        navigate("/how-to-use"); // Redirect to DAF & FAF Page
     };
 
     return (

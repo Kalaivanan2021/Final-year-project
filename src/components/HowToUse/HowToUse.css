@@ -1,0 +1,24 @@
+.how-to-container {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    color: white;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  button {
+    background: linear-gradient(135deg, #00c853, #b2ff59);
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  button:hover {
+    background: linear-gradient(135deg, #00bfa5, #1de9b6);
+  }
+  
