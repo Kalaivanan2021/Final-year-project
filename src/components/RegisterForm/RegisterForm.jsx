@@ -1,7 +1,6 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./LoginForm.css"; // Same CSS file for styling
+import "./LoginForm.css";
 
 const RegisterForm = () => {
     console.log("RegisterForm Loaded");
@@ -15,7 +14,7 @@ const RegisterForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("User Registered:", formData);
-        navigate("/login"); // Redirect to login page
+        navigate("/DAF_FAF"); // Redirect to DAF & FAF Page
     };
 
     return (
@@ -23,7 +22,7 @@ const RegisterForm = () => {
             <form onSubmit={handleSubmit}>
                 <h1>Register</h1>
                 <div className="input-box">
-                    <input type="text" name="Username" placeholder="username" required onChange={handleChange} />
+                    <input type="text" name="username" placeholder="Username" required onChange={handleChange} />
                 </div>
                 <div className="input-box">
                     <input type="email" name="email" placeholder="Email" required onChange={handleChange} />
@@ -37,7 +36,6 @@ const RegisterForm = () => {
                         <button type="button" onClick={() => navigate("/login")}>Login</button>
                     </p>
                 </div>
-                
             </form>
         </div>
     );

@@ -1,14 +1,19 @@
-
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 import { FaUser, FaLock } from "react-icons/fa";
 
-
 const LoginForm = () => {
+    const navigate = useNavigate();
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        navigate("/DAF_FAF"); // Redirect to DAF & FAF Page
+    };
+
     return (
         <div className="wrapper">
-            <form>
+            <form onSubmit={handleLogin}>
                 <h1>Login</h1>
                 <div className="input-box">
                     <input type="text" placeholder="Username" required />
@@ -26,9 +31,7 @@ const LoginForm = () => {
                 </div>
                 <button type="submit">Login</button>
                 <div className="register-link">
-                    <p>
-                        Don't have an account? <Link to="/register">Register</Link>
-                    </p>
+                    <p>Don't have an account? <Link to="/register">Register</Link></p>
                 </div>
             </form>
         </div>
