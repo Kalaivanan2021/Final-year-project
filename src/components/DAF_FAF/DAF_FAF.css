@@ -126,3 +126,13 @@ body {
   transform: scale(1.05);
   background: linear-gradient(135deg, #ff3d47, #ff6f61);
 }
+.daf, .faf {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust spacing */
+}
+
+h3 {
+  margin: 0;
+  font-weight: bold;
+}
