@@ -27,9 +27,8 @@ const AudioRecorder = () => {
   const [recording, setRecording] = useState(false);
   const [audioURL, setAudioURL] = useState(null);
   const [showExercise, setShowExercise] = useState(false);
-  const [showDAF_FAF, setShowDAF_FAF] = useState(false);
-  const [playbackRate, setPlaybackRate] = useState(1);
-  const [pitch, setPitch] = useState(1);
+  const [playbackRate, setPlaybackRate] = useState(1); // DAF
+  const [pitch, setPitch] = useState(1); // FAF
   const [randomSentences, setRandomSentences] = useState([]);
   const mediaRecorder = useRef(null);
   const audioChunks = useRef([]);
@@ -38,9 +37,8 @@ const AudioRecorder = () => {
   const startRecording = async () => {
     try {
       setAudioURL(null);
-      audioChunks.current = [];
       setShowExercise(false);
-      setShowDAF_FAF(false);
+      audioChunks.current = [];
       setRandomSentences(getRandomSentence());
 
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -57,7 +55,6 @@ const AudioRecorder = () => {
         const url = URL.createObjectURL(audioBlob);
         setAudioURL(url);
         setShowExercise(true);
-        setShowDAF_FAF(true);
         setRandomSentences([]);
       };
 
@@ -75,8 +72,26 @@ const AudioRecorder = () => {
     }
   };
 
+  const handleSpeedChange = (event) => {
+    const speed = parseFloat(event.target.value);
+    setPlaybackRate(speed);
+    if (audioRef.current) {
+      audioRef.current.playbackRate = speed;
+    }
+  };
+
+  const handlePitchChange = (event) => {
+    const pitchValue = parseFloat(event.target.value);
+    setPitch(pitchValue);
+    if (audioRef.current) {
+      audioRef.current.preservesPitch = false;
+      audioRef.current.playbackRate = pitchValue;
+    }
+  };
+
   return (
     <div className="recorder-container">
+      {/* ✅ Show Random Sentences While Recording */}
       {recording && randomSentences.length > 0 && (
         <div className="sentence-box">
           {randomSentences.map((sentence, index) => (
@@ -96,46 +111,43 @@ const AudioRecorder = () => {
         <div className="audio-controls">
           <audio ref={audioRef} controls src={audioURL}></audio>
           <a href={audioURL} download="recording.wav" className="download-btn">Download</a>
+
+          {/* ✅ DAF Adjustment (Delays Playback) */}
+          <div className="control-group">
+            <label>DAF:</label>
+            <button className="round-btn" onClick={() => setPlaybackRate(Math.max(0.5, playbackRate - 0.1))}>-</button>
+            <input
+              type="range"
+              min="0.5"
+              max="2"
+              step="0.1"
+              value={playbackRate}
+              onChange={handleSpeedChange}
+            />
+            <button className="round-btn" onClick={() => setPlaybackRate(Math.min(2, playbackRate + 0.1))}>+</button>
+            <span className="value-display">{(playbackRate * 100).toFixed(0)} ms</span>
+          </div>
+
+          {/* ✅ FAF Adjustment (Alters Pitch) */}
+          <div className="control-group">
+            <label>FAF:</label>
+            <button className="round-btn" onClick={() => setPitch(Math.max(0.5, pitch - 0.1))}>-</button>
+            <input
+              type="range"
+              min="0.5"
+              max="2"
+              step="0.1"
+              value={pitch}
+              onChange={handlePitchChange}
+            />
+            <button className="round-btn" onClick={() => setPitch(Math.min(2, pitch + 0.1))}>+</button>
+            <span className="value-display">{pitch.toFixed(1)}x</span>
+          </div>
         </div>
       )}
 
-      {showDAF_FAF && (
-        <div className="daf-faf-wrapper">
-          <h2>DAF & FAF Speech Training</h2>
-         
-          <div className="daf-faf-center">
-            <div className="daf">
-              <h3 className="label">DAF:</h3>
-              <button className="minus-btn">-</button>
-              <input
-                type="range"
-                min="50"
-                max="200"
-                step="10"
-                value={playbackRate * 100}
-                onChange={(e) => setPlaybackRate(parseFloat(e.target.value) / 100)}
-              />
-              <span>{(playbackRate * 100).toFixed(0)} ms</span>
-              <button className="plus-btn">+</button>
-            </div>
-            <div className="faf">
-              <h3 className="label">FAF:</h3>
-              <button className="minus-btn">-</button>
-              <input
-                type="range"
-                min="0.5"
-                max="2"
-                step="0.1"
-                value={pitch}
-                onChange={(e) => setPitch(parseFloat(e.target.value))}
-              />
-              <span>{pitch.toFixed(1)}x</span>
-              <button className="plus-btn">+</button>
-            </div>
-          </div>
-          <button className="exercise-btn">Start Exercise</button>
-        </div>
-      )}
+      {/* ✅ Show Exercise Button After Recording Stops */}
+      {showExercise && <button className="exercise-btn">Start Exercise</button>}
     </div>
   );
 };
