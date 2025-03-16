@@ -5,7 +5,7 @@ import "./DAF_FAF.css";
 const DAF_FAF = () => {
   return (
     <div className="daf-faf-container">
-      <h1>DAF & FAF Speech Training</h1>
+      <center><h1>DAF & FAF Speech Training</h1></center>
       <AudioRecorder /> {/* ✅ Use AudioRecorder here */}
     </div>
   );

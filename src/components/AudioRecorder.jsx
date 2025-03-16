@@ -27,6 +27,7 @@ const AudioRecorder = () => {
   const [recording, setRecording] = useState(false);
   const [audioURL, setAudioURL] = useState(null);
   const [showExercise, setShowExercise] = useState(false);
+  const [showContainers, setShowContainers] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1); // DAF
   const [pitch, setPitch] = useState(1); // FAF
   const [randomSentences, setRandomSentences] = useState([]);
@@ -39,6 +40,7 @@ const AudioRecorder = () => {
       setAudioURL(null);
       setShowExercise(false);
       audioChunks.current = [];
+      setShowContainers(false);
       setRandomSentences(getRandomSentence());
 
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -55,6 +57,7 @@ const AudioRecorder = () => {
         const url = URL.createObjectURL(audioBlob);
         setAudioURL(url);
         setShowExercise(true);
+        setShowContainers(true);
         setRandomSentences([]);
       };
 
@@ -90,64 +93,79 @@ const AudioRecorder = () => {
   };
 
   return (
-    <div className="recorder-container">
-      {/* ✅ Show Random Sentences While Recording */}
-      {recording && randomSentences.length > 0 && (
-        <div className="sentence-box">
-          {randomSentences.map((sentence, index) => (
-            <p key={index} className="sentence">{sentence}</p>
-          ))}
+    <div className="recorder-wrapper">
+      {showContainers && (
+        <div className="side-container left-container">
+          <h3>DAF</h3>
+          <p>Delayed Auditory Feedback (DAF) plays back the modified DAF speech. Adjust delay time and practice 20 times.</p>
         </div>
       )}
-
-      <button 
-        className={`record-btn ${recording ? "stop" : "start"}`} 
-        onClick={recording ? stopRecording : startRecording}
-      >
-        {recording ? "Stop Recording" : "Start Recording"}
-      </button>
-
-      {audioURL && (
-        <div className="audio-controls">
-          <audio ref={audioRef} controls src={audioURL}></audio>
-          <a href={audioURL} download="recording.wav" className="download-btn">Download</a>
-
-          {/* ✅ DAF Adjustment (Delays Playback) */}
-          <div className="control-group">
-            <label>DAF:</label>
-            <button className="round-btn" onClick={() => setPlaybackRate(Math.max(0.5, playbackRate - 0.1))}>-</button>
-            <input
-              type="range"
-              min="0.5"
-              max="2"
-              step="0.1"
-              value={playbackRate}
-              onChange={handleSpeedChange}
-            />
-            <button className="round-btn" onClick={() => setPlaybackRate(Math.min(2, playbackRate + 0.1))}>+</button>
-            <span className="value-display">{(playbackRate * 100).toFixed(0)} ms</span>
+      <div className="recorder-container">
+        {/* ✅ Show Random Sentences While Recording */}
+        {recording && randomSentences.length > 0 && (
+          <div className="sentence-box">
+            {randomSentences.map((sentence, index) => (
+              <p key={index} className="sentence">{sentence}</p>
+            ))}
           </div>
+        )}
 
-          {/* ✅ FAF Adjustment (Alters Pitch) */}
-          <div className="control-group">
-            <label>FAF:</label>
-            <button className="round-btn" onClick={() => setPitch(Math.max(0.5, pitch - 0.1))}>-</button>
-            <input
-              type="range"
-              min="0.5"
-              max="2"
-              step="0.1"
-              value={pitch}
-              onChange={handlePitchChange}
-            />
-            <button className="round-btn" onClick={() => setPitch(Math.min(2, pitch + 0.1))}>+</button>
-            <span className="value-display">{pitch.toFixed(1)}x</span>
+        <button 
+          className={`record-btn ${recording ? "stop" : "start"}`} 
+          onClick={recording ? stopRecording : startRecording}
+        >
+          {recording ? "Stop Recording" : "Start Recording"}
+        </button>
+
+        {audioURL && (
+          <div className="audio-controls">
+            <audio ref={audioRef} controls src={audioURL}></audio>
+            <a href={audioURL} download="recording.wav" className="download-btn">Download</a>
+
+            {/* ✅ DAF Adjustment (Delays Playback) */}
+            <div className="control-group">
+              <label>DAF:</label>
+              <button className="round-btn" onClick={() => setPlaybackRate(Math.max(0.5, playbackRate - 0.1))}>-</button>
+              <input
+                type="range"
+                min="0.5"
+                max="2"
+                step="0.1"
+                value={playbackRate}
+                onChange={handleSpeedChange}
+              />
+              <button className="round-btn" onClick={() => setPlaybackRate(Math.min(2, playbackRate + 0.1))}>+</button>
+              <span className="value-display">{(playbackRate * 100).toFixed(0)} ms</span>
+            </div>
+
+            {/* ✅ FAF Adjustment (Alters Pitch) */}
+            <div className="control-group">
+              <label>FAF:</label>
+              <button className="round-btn" onClick={() => setPitch(Math.max(0.5, pitch - 0.1))}>-</button>
+              <input
+                type="range"
+                min="0.5"
+                max="2"
+                step="0.1"
+                value={pitch}
+                onChange={handlePitchChange}
+              />
+              <button className="round-btn" onClick={() => setPitch(Math.min(2, pitch + 0.1))}>+</button>
+              <span className="value-display">{pitch.toFixed(1)}x</span>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* ✅ Show Exercise Button After Recording Stops */}
-      {showExercise && <button className="exercise-btn">Start Exercise</button>}
+     
+    </div>
+    {showContainers && (
+      <div className="side-container right-container">
+        <h3>FAF</h3>
+        <p>Frequency Altered Feedback (FAF) modifies the pitch of speech. Adjust pitch settings and practice 20 times.</p>
+      </div>
+    )}
+     {/* ✅ Show Exercise Button After Recording Stops */}
+    {showExercise && <center><button className="exercise-btn">Start Exercise</button></center>}
     </div>
   );
 };

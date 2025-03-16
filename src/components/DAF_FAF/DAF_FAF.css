@@ -12,6 +12,49 @@ body {
   padding: 20px;
 }
 
+
+/* Wrapper for Left, Main, and Right Containers */
+.recorder-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px; /* Space between containers */
+}
+
+/* Left and Right Containers */
+.side-container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
+  text-align: center;
+  width: 500px;
+  min-height: 150px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+/* Left and Right Container Text Styling */
+.side-container h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #b2ff59;
+
+}
+
+.side-container p {
+  font-size: 25px;
+  color: hsl(0, 0%, 100%);
+  text-align: center;
+ 
+}
+
 /* Main Container */
 .recorder-container {
   background: rgba(255, 255, 255, 0.1);
@@ -30,7 +73,7 @@ body {
   padding: 12px 25px;
   font-size: 18px;
   font-weight: bold;
-  color: white;
+  color:black;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -39,7 +82,7 @@ body {
 }
 
 .record-btn.start {
-  background: linear-gradient(135deg, #00c853, #b2ff59);
+  background: linear-gradient(135deg, #b2ff59, #b2ff59);
 }
 
 .record-btn.stop {
@@ -85,18 +128,23 @@ body {
 .round-btn {
   width: 40px;
   height: 40px;
-  background: #ff5722;
+  margin-top: -2px;
+  background: red;
   color: white;
   font-size: 22px;
   font-weight: bold;
+  font-size: x-large;
   border: none;
   border-radius: 50%;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
 }
-
 .round-btn:hover {
-  background: #ff9800;
-  transform: scale(1.1);
+  background: darkred;
+  transform: scale(1.2);
 }
 
 /* Display Value */
@@ -120,6 +168,11 @@ body {
   border-radius: 10px;
   cursor: pointer;
   transition: 0.3s;
+  position: absolute;
+  bottom: 40px; /* Adjust as needed */
+  left: 45%;
+  
+  
 }
 
 .exercise-btn:hover {
