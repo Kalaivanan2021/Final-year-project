@@ -28,10 +28,13 @@ const HowToUse = () => {
         transition={{ duration: 0.7 }}
         style={{ fontSize: "18px", lineHeight: "1.6" }}
       >
-        1. Click "Start Recording" to begin speech practice.<br />
-        2. Adjust DAF (Delayed Auditory Feedback) and FAF (Frequency Altered Feedback) using the sliders.<br />
-        3. Play back your recorded speech and analyze improvements.<br />
-        4. Use the "Start Exercise" button for guided speech exercises.
+   1. Tap "Start Recording" to begin practicing your speech. 🎤<br />
+   2. Customize your experience! Tune DAF (Delayed Auditory Feedback) and FAF (Frequency Altered Feedback).<br />
+   3.  Listen, Learn, Improve! Replay your recording to hear the difference and track your progress. <br />
+   4. Level Up! Hit "Start Exercise" for guided speech training sessions. <br />
+
+<br />🔴 Ready to transform your speech?
+Tap the "Proceed to Practice" button now!
       </motion.p>
       <motion.button 
         onClick={() => navigate("/DAF_FAF")}

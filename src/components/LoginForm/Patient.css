@@ -1,0 +1,68 @@
+ .patient-wrapper, .doctor-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('../assets/image.jpeg') no-repeat center center fixed;
+    background-size: cover;
+  }
+  .input-box input {
+    margin-bottom: 3px; /* Add space between input fields */
+    padding: 14px;
+    font-size:14px;
+  }
+  button {
+    width: 150px; /* Adjust the width */
+    height: 50px; /* Adjust the height */
+    font-size: 14px;
+    margin-top: 5px;
+    margin-left: 0%;
+  }
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  form {
+    padding: 40px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+  }
+  
+  form h1 {
+    text-align: center;
+  }
+  
+  form select, form input, form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    
+  }
+  
+  form button {
+    background-color: #4e54c8;
+    color: white;
+    cursor: pointer;
+  }
+  
+  /* Form Layout */
+  .form-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .column {
+    width: 48%;
+  }
+  
+  .input-box {
+    margin-bottom: 15px;
+  }
+  
