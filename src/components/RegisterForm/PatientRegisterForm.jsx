@@ -27,16 +27,23 @@ const RegisterForm = () => {
     setRole(e.target.value);
   };
 
+  const generatePatientID = () => {
+    return Math.floor(1000 + Math.random() * 9000);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!role) {
       alert("Please select a role to proceed.");
       return;
     }
-
     if (role === "patient") {
-      console.log("Patient Registered:", formData);
-      alert("Patient registered successfully!");
+      const patientID = generatePatientID();
+      const patientData = { ...formData, patientID };
+
+      alert(
+        `Patient Registered Successfully!\n\nPatient ID: ${patientData.patientID}\nName: ${patientData.name}\nDate of Birth: ${patientData.dob}\nContact: ${patientData.contact}\nEmail: ${patientData.email}\nDiagnosis: ${patientData.diagnosis}\nSeverity: ${patientData.severity}\nTherapy History: ${patientData.therapyHistory}`
+      );
       navigate("/patient-login");
     } else if (role === "doctor") {
       console.log("Doctor Registered:", formData);
